@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
+#if UNITY_EDITOR
+using UnityEngine.TestTools;
+#endif
 
 namespace Hertzole.GoldPlayer
 {
@@ -9,16 +12,16 @@ namespace Hertzole.GoldPlayer
         [SerializeField]
         [Tooltip("Determines if support for moving platforms should be enabled.")]
         [FormerlySerializedAs("m_Enabled")]
-        private bool enabled = true;
+        internal bool enabled = true;
         [SerializeField]
         [Tooltip("If enabled, the player will move with platforms.")]
-        private bool movePosition = true;
+        internal bool movePosition = true;
         [SerializeField]
         [Tooltip("If enabled, the player will rotate with platforms.")]
-        private bool moveRotation = true;
+        internal bool moveRotation = true;
         [SerializeField]
         [Tooltip("Sets the max angle of the platforms the player can stand on.")]
-        private float maxAngle = 45f;
+        internal float maxAngle = 45f;
 
         /// <summary> Determines if support for moving platforms should be enabled. </summary>
         public bool Enabled { get { return enabled; } set { enabled = value; } }
@@ -29,7 +32,9 @@ namespace Hertzole.GoldPlayer
         /// <summary> Sets the max angle of the platforms the player can stand on. </summary>
         public float MaxAngle { get { return maxAngle; } set { maxAngle = value; } }
 
-        private bool DidPlatformMove { get { return currentPlatform != null && currentPlatformLastPosition != currentPlatform.position; } }
+        public bool DidPlatformMove { get { return currentPlatform != null && currentPlatformLastPosition != currentPlatform.position; } }
+
+        public bool IsMoving { get; private set; }
 
         private float minNormalY;
         private const float CHECK_DISTANCE = 0.2f;
@@ -76,6 +81,7 @@ namespace Hertzole.GoldPlayer
         {
             if (currentPlatform == null || recordedPlatform == null)
             {
+                IsMoving = false;
                 return;
             }
 
@@ -103,7 +109,17 @@ namespace Hertzole.GoldPlayer
                     {
                         CharacterController.Move(moveDistance);
                     }
+
+                    IsMoving = true;
                 }
+                else
+                {
+                    IsMoving = false;
+                }
+            }
+            else
+            {
+                IsMoving = false;
             }
 
             if (moveRotation)
@@ -156,6 +172,7 @@ namespace Hertzole.GoldPlayer
         }
 
 #if UNITY_EDITOR
+        [ExcludeFromCoverage]
         public override void OnValidate()
         {
             if (Application.isPlaying)

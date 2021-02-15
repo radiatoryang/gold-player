@@ -10,7 +10,7 @@ A first-person player controller for Unity, built with being user-friendly and d
 - Easy to use functions
 - Very well documented code
 - Interaction component, UI component, graphics component, and animator component
-- Works with multiplayer
+- Easy to integrate into multiplayer
 - Support for [Unity's new Input System](http://docs.unity3d.com/Packages/com.unity.inputsystem@latest/)
 - Works with IL2CPP and fast enter play mode settings
 
@@ -52,11 +52,11 @@ You can then explore all the options on the controller. You can also check out a
 Gold Player is licensed under MIT. You can do whatever you want with it, but I'm not liable if it causes any damages.
 
 ## 🕹 Screenshots and Testing
-**[Play Example Level](https://hertzole.github.io/gold-player/docs/play)**  
+**[Play Example Level](https://hertzole.github.io/gold-player/play)**  
 You can play around in an example scene that showcases most of the features while also allowing you to modify the player at runtime. 
 
 The available editors:
-![Editor](https://raw.githubusercontent.com/Hertzole/gold-player/gh-pages/docs/screenshots/editor.png)
+![Editor](https://raw.githubusercontent.com/Hertzole/gold-player/gh-pages/screenshots/editor.png)
 
 ##
 

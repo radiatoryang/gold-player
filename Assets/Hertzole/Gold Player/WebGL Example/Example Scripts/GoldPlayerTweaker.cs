@@ -91,6 +91,13 @@ namespace Hertzole.GoldPlayer.Example
         private bool previousLockCursor = false;
 #endif
 
+#if !UNITY_EDITOR && UNITY_WEBGL
+        private void Awake()
+        {
+            WebGLInput.captureAllKeyboardInput = true;
+        }
+#endif
+
         // Use this for initialization
         void Start()
         {
@@ -171,7 +178,7 @@ namespace Hertzole.GoldPlayer.Example
         private void SetupUI()
         {
             CreateHeader("Game");
-            CreateTweaker("Timescale", x => { Time.timeScale = x / 10f; }, 10, true, 1, 20, 10f);
+            CreateTweaker("Timescale", x => { Time.timeScale = x / 10f; }, 10, true, 0, 20, 10f);
             CreateTweaker("V-Sync", x => { QualitySettings.vSyncCount = x ? 1 : 0; }, QualitySettings.vSyncCount == 1);
             CreateTweaker("Unscaled Movement", x => { targetPlayer.UnscaledTime = x; }, false);
 

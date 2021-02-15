@@ -114,7 +114,7 @@ namespace Hertzole.GoldPlayer
         [SerializeField]
         [Tooltip("Sets the gravity of the player.")]
         [FormerlySerializedAs("m_Gravity")]
-        private float gravity = 20;
+        internal float gravity = 20;
         [SerializeField]
         [Range(0f, 1f)]
         [Tooltip("How much control the player will have in the air.")]
@@ -127,7 +127,7 @@ namespace Hertzole.GoldPlayer
         [SerializeField]
         [Tooltip("Sets how much the player will stick to the ground.")]
         [FormerlySerializedAs("m_GroundStick")]
-        private float groundStick = 10;
+        internal float groundStick = 10;
         [SerializeField]
         [Tooltip("The way the player will check if it's grounded.")]
         private GroundCheckType groundCheck = GroundCheckType.Sphere;
@@ -147,23 +147,8 @@ namespace Hertzole.GoldPlayer
 
         //////// INPUT
         [SerializeField]
-#if !ENABLE_INPUT_SYSTEM && GOLD_PLAYER_NEW_INPUT
-        [HideInInspector]
-#endif
         [Tooltip("Move action for the new Input System.")]
         private string input_Move = "Move";
-        [SerializeField]
-#if ENABLE_INPUT_SYSTEM && GOLD_PLAYER_NEW_INPUT
-        [HideInInspector]
-#endif
-        [Tooltip("Horizontal move axis for the old Input Manager.")]
-        private string input_HorizontalAxis = "Horizontal";
-        [SerializeField]
-#if ENABLE_INPUT_SYSTEM && GOLD_PLAYER_NEW_INPUT
-        [HideInInspector]
-#endif
-        [Tooltip("Vertical move axis for the old Input Manager.")]
-        private string input_VerticalAxis = "Vertical";
         [SerializeField]
         [Tooltip("Jump input action.")]
         private string input_Jump = "Jump";
@@ -196,6 +181,10 @@ namespace Hertzole.GoldPlayer
         private float moveSpeedMultiplier = 1;
         // The current jump height multiplier,
         private float jumpHeightMultiplier = 1;
+        // The start position of the player when they jump.
+        private float jumpStartYPosition = 0;
+        // The max height the player reached in their jump.
+        private float maxAirHeight = 0;
 
         // The current amount of times an air jump has been performed.
         private int currentJumps = 0;
@@ -251,8 +240,12 @@ namespace Hertzole.GoldPlayer
         private Vector3 jumpPosition = Vector3.zero;
         // The impact of the applied force.
         private Vector3 forceImpact = Vector3.zero;
+        // The previous player position.
+        private Vector3 previousPosition = Vector3.zero;
+        // The current velocity.
+        private Vector3 velocity = Vector3.zero;
         // The rays used for raycast ground check.
-        private Vector3[] groundCheckRays;
+        internal Vector3[] groundCheckRays;
 
         // The move speed that will be used when moving. Can be changed and it will be reflected in movement.
         private MovementSpeeds moveSpeed = new MovementSpeeds();
@@ -268,7 +261,7 @@ namespace Hertzole.GoldPlayer
         /// <summary> Multiplies the current move speed. </summary>
         public float MoveSpeedMultiplier { get { return moveSpeedMultiplier; } set { moveSpeedMultiplier = value; } }
         /// <summary> Multiplies the current jump height. </summary>
-        public float JumpHeightMultiplier { get { return jumpHeightMultiplier; } set { jumpHeightMultiplier = value; CalculateJumpHeight(jumpHeight * value); } }
+        public float JumpHeightMultiplier { get { return jumpHeightMultiplier; } set { jumpHeightMultiplier = value; realJumpHeight = CalculateJumpHeight(jumpHeight * value); } }
 
         /// <summary> Determines if the player can run. </summary>
         public bool CanRun { get { return canRun; } set { canRun = value; if (!value && IsRunning) { moveSpeed = walkingSpeeds; } } }
@@ -365,10 +358,6 @@ namespace Hertzole.GoldPlayer
 
         /// <summary> Move action for the new Input System. </summary>
         public string MoveInput { get { return input_Move; } set { input_Move = value; } }
-        /// <summary> Horizontal move axis for the old Input Manager. </summary>
-        public string HorizontalAxis { get { return input_HorizontalAxis; } set { input_HorizontalAxis = value; } }
-        /// <summary> Vertical move axis for the old Input Manager. </summary>
-        public string VerticalAxis { get { return input_VerticalAxis; } set { input_VerticalAxis = value; } }
         /// <summary> Jump input action. </summary>
         public string JumpInput { get { return input_Jump; } set { input_Jump = value; } }
         /// <summary> Run input action. </summary>
@@ -402,6 +391,9 @@ namespace Hertzole.GoldPlayer
         /// <summary> Input values for movement on the X and Z axis, automatically dampened for smoothing. </summary>
         public Vector2 SmoothedMovementInput { get { return smoothedMovementInput; } set { smoothedMovementInput = value; } }
 
+        /// <summary> The current velocity of the player. </summary>
+        public Vector3 Velocity { get { return velocity; } }
+
         /// <summary> Fires when the player jumps. </summary>
         public event GoldPlayerDelegates.JumpEvent OnJump;
         /// <summary> Fires when the player lands. </summary>
@@ -414,6 +406,17 @@ namespace Hertzole.GoldPlayer
         public event GoldPlayerDelegates.PlayerEvent OnBeginRun;
         /// <summary> Fires when the player stops running. </summary>
         public event GoldPlayerDelegates.PlayerEvent OnEndRun;
+
+        #region Obsolete
+#if UNITY_EDITOR
+        /// <summary> Horizontal move axis for the old Input Manager. </summary>
+        [System.Obsolete("Use 'MoveInput' instead along with GetVector2. This will be removed on build.", true)]
+        public string HorizontalAxis { get { return null; } set { } }
+        /// <summary> Vertical move axis for the old Input Manager. </summary>
+        [System.Obsolete("Use 'MoveInput' instead along with GetVector2. This will be removed on build.", true)]
+        public string VerticalAxis { get { return null; } set { } }
+#endif
+        #endregion
 
         protected override void OnInitialize()
         {
@@ -483,6 +486,18 @@ namespace Hertzole.GoldPlayer
         /// <returns>Is the player grounded?</returns>
         public bool CheckGrounded()
         {
+            // If the player is jumping, not falling, and is within their "jump grace height", just return false.
+            // This allows the player to jump even on really low time scales where they don't get off the ground
+            // quickly enough before IsGrounded is true again.
+            if (isJumping && !isFalling)
+            {
+                float difference = PlayerTransform.position.y - jumpStartYPosition;
+                if (difference < 0.1f)
+                {
+                    return false;
+                }
+            }
+
             switch (groundCheck)
             {
                 case GroundCheckType.Raycast:
@@ -521,7 +536,8 @@ namespace Hertzole.GoldPlayer
 #if DEBUG
             if (rays.Length != rayAmount + 1)
             {
-                throw new System.ArgumentException("The provided array needs to be the same as Ray Amount + 1 (" + rayAmount + 1 + ")");
+                Debug.LogError("The provided array needs to be the same as Ray Amount + 1 (" + (rayAmount + 1).ToString() + ")");
+                return;
             }
 #endif
 
@@ -540,20 +556,12 @@ namespace Hertzole.GoldPlayer
         /// <returns></returns>
         public Vector2 GetInput(float deltaTime)
         {
-#if ENABLE_INPUT_SYSTEM && GOLD_PLAYER_NEW_INPUT
             Vector2 input = GetVector2Input(input_Move);
             if (canMoveAround)
             {
                 movementInput.x = input.x;
                 movementInput.y = input.y;
             }
-#else
-            if (canMoveAround)
-            {
-                movementInput.x = GetAxisRaw(input_HorizontalAxis);
-                movementInput.y = GetAxisRaw(input_VerticalAxis);
-            }
-#endif
 
             hasUserInput = movementInput.x != 0 || movementInput.y != 0;
 
@@ -587,6 +595,8 @@ namespace Hertzole.GoldPlayer
                 deltaTime = Time.unscaledDeltaTime;
             }
 
+            previousPosition = PlayerTransform.position;
+
             // Call update on the stamina module.
             stamina.OnUpdate(deltaTime);
             // Call update on the moving platforms module.
@@ -608,6 +618,15 @@ namespace Hertzole.GoldPlayer
 
             // Move the player using the character controller.
             CharacterController.Move(moveDirection * deltaTime);
+
+            if (!movingPlatforms.IsMoving || movementInput != Vector2.zero)
+            {
+                velocity = (previousPosition - PlayerTransform.position) / deltaTime;
+            }
+            else
+            {
+                velocity = Vector3.zero;
+            }
         }
 
         /// <summary>
@@ -635,6 +654,11 @@ namespace Hertzole.GoldPlayer
             // Else apply the ground stick so the player sticks to the ground.
             if (!isGrounded)
             {
+                if (PlayerTransform.position.y > maxAirHeight)
+                {
+                    maxAirHeight = PlayerTransform.position.y;
+                }
+
                 // If the player was just grounded, set the jump position.
                 // The player probably just jumped or started falling.
                 if (previouslyGrounded)
@@ -672,6 +696,12 @@ namespace Hertzole.GoldPlayer
                     moveDirection.y = 0;
                 }
 
+                // If we're below the max air height, we're falling.
+                if (!isFalling && PlayerTransform.position.y < maxAirHeight)
+                {
+                    isFalling = true;
+                }
+
                 // Apply gravity to the Y axis.
                 moveDirection.y -= gravity * deltaTime;
             }
@@ -698,6 +728,7 @@ namespace Hertzole.GoldPlayer
                 // The player is on the ground so it is not falling or jumping.
                 isFalling = false;
                 isJumping = false;
+                maxAirHeight = 0;
                 // The player was previously grounded.
                 previouslyGrounded = true;
 
@@ -823,6 +854,7 @@ namespace Hertzole.GoldPlayer
             shouldJump = false;
             // Reset the current air time.
             currentAirTime = 0;
+            jumpStartYPosition = PlayerTransform.position.y;
 
             // If the player is crouching when trying to jump, check if the player can jump while crouched.
             // If the player isn't crouching, just jump.
@@ -883,15 +915,8 @@ namespace Hertzole.GoldPlayer
                 return;
             }
 
-            // Cache the value here to avoid calling natively to Time twice.
-            float timeScale = Time.timeScale;
-
-            // Cache the value, mostly to minimize the code length. Might improve performance extremely slightly by not calling native code.
-            Vector3 velocity = CharacterController.velocity;
-
             // Set 'isRunning' to true if the player velocity is above the walking speed max.
-            // The velocity also needs to be multiplier with time scale or else it will become extremely large on lower time scales or low on high time scales.
-            isRunning = new Vector2(velocity.x * timeScale, velocity.z * timeScale).magnitude > (walkingSpeeds.Max + 0.5f) * (unscaledTime ? 1 : timeScale);
+            isRunning = new Vector2(velocity.x, velocity.z).magnitude > (walkingSpeeds.Max + 0.5f);
 
             // Only set shouldRun if the player can move around.
             if (canMoveAround)

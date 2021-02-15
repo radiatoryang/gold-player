@@ -39,9 +39,13 @@ namespace Hertzole.GoldPlayer
 
         public float BobCycle { get { return bobClass.BobCycle; } }
 
+#if UNITY_EDITOR
+        internal BobClass BobClass { get { return bobClass; } }
+#endif
+
         protected override void OnInitialize()
         {
-            if (bobClass.BobTarget == null && bobClass.EnableBob)
+            if (bobClass.EnableBob && bobClass.BobTarget == null)
             {
                 Debug.LogError("No Bob Target set on '" + PlayerController.gameObject.name + "'!");
                 return;
@@ -57,7 +61,7 @@ namespace Hertzole.GoldPlayer
 
         private void BobHandler(float deltaTime)
         {
-            bobClass.DoBob(CharacterController.velocity, deltaTime, PlayerController.Movement.MovementInput.x);
+            bobClass.DoBob(PlayerController.Velocity, deltaTime, PlayerController.Movement.MovementInput.x);
         }
     }
 }

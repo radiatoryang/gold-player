@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
 
+#if UNITY_EDITOR
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Hertzole.GoldPlayer.Tests")]
+#endif
 namespace Hertzole.GoldPlayer
 {
     [RequireComponent(typeof(CharacterController))]
@@ -50,6 +53,8 @@ namespace Hertzole.GoldPlayer
         /// <summary> Everything related to audio (footsteps, landing and jumping). </summary>
         public PlayerAudio Audio { get { return sounds; } set { sounds = value; } }
 
+        public Vector3 Velocity { get { return movement.Velocity; } }
+
 #if UNITY_EDITOR || GOLD_PLAYER_DISABLE_OPTIMIZATIONS
         private bool initOnStart = true;
         /// <summary> If false, 'Initialize()' will not be called on Start and will only be called once another script calls it. </summary>
@@ -58,32 +63,6 @@ namespace Hertzole.GoldPlayer
         [System.NonSerialized]
         public bool InitOnStart = true;
 #endif
-
-        #region Obsolete
-#if UNITY_EDITOR
-        /// <summary> The main action map for the Input Actions. </summary>
-        [System.Obsolete("No longer used. This will be removed on build.", true)]
-        public string ActionMap
-        {
-            get
-            {
-#if !ENABLE_INPUT_SYSTEM && GOLD_PLAYER_NEW_INPUT
-                Debug.LogWarning("GoldPlayerController.ActionMap is useless when not using the new Input System.");
-#endif
-                return string.Empty;
-            }
-            set
-            {
-#if !ENABLE_INPUT_SYSTEM && GOLD_PLAYER_NEW_INPUT
-                Debug.LogWarning("GoldPlayerController.ActionMap is useless when not using the new Input System.");
-#endif
-            }
-        }
-        /// <summary> Has all the scripts be initialized? </summary>
-        [System.Obsolete("Use HasBeenFullyInitialized instead. This will be removed on build.", true)]
-        public bool HasBeenInitialized { get { return HasBeenFullyInitialized; } }
-#endif // UNITY_EDITOR
-        #endregion
 
         /// <summary> The character controller on the player. </summary>
         public CharacterController Controller { get { return controller; } }
@@ -95,7 +74,7 @@ namespace Hertzole.GoldPlayer
         public IGoldInput PlayerInput;
 #endif
 
-        private void Awake()
+        internal void Awake()
         {
             // Get all the references as soon as possible.
             GetReferences();
@@ -278,19 +257,49 @@ namespace Hertzole.GoldPlayer
             controller.enabled = true;
         }
 
-        public void SetPositionAndRotation(Vector3 position, Quaternion rotation)
+        public void SetRotation(float yRotation)
         {
-            controller.enabled = false;
-            transform.SetPositionAndRotation(position, rotation);
-            controller.enabled = true;
+            if (cam.RotateCameraOnly)
+            {
+                cam.BodyAngle = yRotation;
+            }
+            else
+            {
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, yRotation, transform.eulerAngles.z);
+            }
         }
 
 #if UNITY_EDITOR
+        [System.Obsolete("Use SetPositionAndRotation with yRotation instead of rotation. This will be removed on build.", true)]
+        public void SetPositionAndRotation(Vector3 position, Quaternion rotation)
+        {
+            SetPositionAndRotation(position, 0);
+        }
+#endif
+
+        public void SetPositionAndRotation(Vector3 position, float yRotation)
+        {
+            if (!cam.RotateCameraOnly)
+            {
+                controller.enabled = false;
+                transform.SetPositionAndRotation(position, Quaternion.Euler(transform.eulerAngles.x, yRotation, transform.eulerAngles.z));
+                controller.enabled = true;
+            }
+            else
+            {
+                SetPosition(position);
+                SetRotation(yRotation);
+            }
+        }
+
+#if UNITY_EDITOR
+        [UnityEngine.TestTools.ExcludeFromCoverage]
         private void Reset()
         {
             GetComponents();
         }
 
+        [UnityEngine.TestTools.ExcludeFromCoverage]
         private void OnValidate()
         {
             GetComponents();
@@ -301,6 +310,7 @@ namespace Hertzole.GoldPlayer
             sounds.OnValidate();
         }
 
+        [UnityEngine.TestTools.ExcludeFromCoverage]
         private void GetComponents()
         {
             if (cam.PlayerController == null)

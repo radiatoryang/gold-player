@@ -53,6 +53,20 @@ namespace Hertzole.GoldPlayer
             HasBeenInitialized = true;
         }
 
+#if UNITY_EDITOR
+        internal void ForceInitialize(IGoldInput input)
+        {
+            if (input != null)
+            {
+                PlayerInput = input;
+            }
+
+            OnInitialize();
+
+            HasBeenInitialized = true;
+        }
+#endif
+
         /// <summary>
         /// Called when the module is initialized.
         /// </summary>
@@ -118,19 +132,10 @@ namespace Hertzole.GoldPlayer
             return PlayerInput.GetAxisRaw(axisName);
         }
 
-#if (!ENABLE_INPUT_SYSTEM || !GOLD_PLAYER_NEW_INPUT) && UNITY_EDITOR
-        [System.Obsolete("GetVector2Input does nothing with the Input Manager. This will be removed on build.", true)]
-#endif
-#if ENABLE_INPUT_SYSTEM && GOLD_PLAYER_NEW_INPUT || UNITY_EDITOR
         protected Vector2 GetVector2Input(string action)
         {
-#if ENABLE_INPUT_SYSTEM && GOLD_PLAYER_NEW_INPUT
             return PlayerInput.GetVector2(action);
-#else
-            return Vector2.zero;
-#endif
         }
-#endif
 
         #region Obsolete
 #if UNITY_EDITOR

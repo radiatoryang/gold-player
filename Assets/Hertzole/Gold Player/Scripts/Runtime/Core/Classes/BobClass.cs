@@ -15,63 +15,64 @@ namespace Hertzole.GoldPlayer
         [SerializeField]
         [Tooltip("Determines if the bob effect should be enabled.")]
         [FormerlySerializedAs("m_EnableBob")]
-        private bool enableBob = true;
+        internal bool enableBob = true;
         [SerializeField]
         [Tooltip("If true, bobbing will use unscaled delta time.")]
         [FormerlySerializedAs("m_UnscaledTime")]
-        private bool unscaledTime = false;
+        internal bool unscaledTime = false;
 
         [SerializeField]
         [Tooltip("Sets how frequent the bob happens.")]
         [FormerlySerializedAs("m_BobFrequency")]
-        private float bobFrequency = 1.5f;
+        internal float bobFrequency = 1.5f;
         [SerializeField]
         [Tooltip("The height of the bob.")]
         [FormerlySerializedAs("m_BobHeight")]
-        private float bobHeight = 0.3f;
+        internal float bobHeight = 0.3f;
         [SerializeField]
         [Tooltip("How much the target will sway from side to side.")]
         [FormerlySerializedAs("m_SwayAngle")]
-        private float swayAngle = 0.5f;
+        internal float swayAngle = 0.5f;
         [SerializeField]
         [Tooltip("How much the target will move to the sides.")]
         [FormerlySerializedAs("m_SideMovement")]
-        private float sideMovement = 0.05f;
+        internal float sideMovement = 0.05f;
         [SerializeField]
         [Tooltip("Adds extra movement to the bob height.")]
         [FormerlySerializedAs("m_HeightMultiplier")]
-        private float heightMultiplier = 0.3f;
+        internal float heightMultiplier = 0.3f;
         [SerializeField]
         [Tooltip("Multiplies the bob frequency speed.")]
         [FormerlySerializedAs("m_StrideMultiplier")]
-        private float strideMultiplier = 0.3f;
+        internal float strideMultiplier = 0.3f;
 
         [SerializeField]
         [Tooltip("How much the target will move when landing.")]
         [FormerlySerializedAs("m_LandMove")]
-        private float landMove = 0.4f;
+        internal float landMove = 0.4f;
         [SerializeField]
         [Tooltip("How much the target will tilt when landing.")]
         [FormerlySerializedAs("m_LandTilt")]
-        private float landTilt = 20f;
+        internal float landTilt = 20f;
 
         [SerializeField]
         [Tooltip("If enabled, the target will tilt when strafing.")]
-        private bool enableStrafeTilting = true;
+        internal bool enableStrafeTilting = true;
         [SerializeField]
         [Tooltip("How much the target will tilt when strafing.")]
         [FormerlySerializedAs("m_StrafeTilt")]
-        private float strafeTilt = 3f;
+        internal float strafeTilt = 3f;
 
         [SerializeField]
         [Tooltip("The object to bob.")]
         [FormerlySerializedAs("m_BobTarget")]
-        private Transform bobTarget = null;
+        internal Transform bobTarget = null;
 
         private Vector3 previousVelocity = Vector3.zero;
         private Vector3 originalHeadLocalPosition = Vector3.zero;
 
         protected float bobCycle = 0f;
+        private float bobCycleBackup = 0;
         protected float bobFade = 0f;
         protected float springPos = 0f;
         protected float springVelocity = 0f;
@@ -111,23 +112,28 @@ namespace Hertzole.GoldPlayer
 
         public float BobCycle { get { return bobCycle; } }
 
+#if UNITY_EDITOR
+        internal Vector3 OriginalHeadLocalPosition { get { return originalHeadLocalPosition; } set { originalHeadLocalPosition = value; } }
+#endif
+
         public void Initialize()
         {
             if (enableBob)
             {
                 if (!bobTarget)
                 {
-                    throw new System.NullReferenceException("No Bob Target set!");
+                    Debug.LogError("No Bob Target set!");
+                    originalHeadLocalPosition = Vector3.zero;
                 }
-
-                originalHeadLocalPosition = bobTarget.localPosition;
+                else
+                {
+                    originalHeadLocalPosition = bobTarget.localPosition;
+                }
             }
         }
 
         public void DoBob(Vector3 velocity, float deltaTime, float zTiltAxis = 0)
         {
-            velocity *= Time.timeScale;
-
             Vector3 velocityChange = velocity - previousVelocity;
             previousVelocity = velocity;
 
@@ -135,6 +141,17 @@ namespace Hertzole.GoldPlayer
             if (unscaledTime)
             {
                 deltaTime = Time.unscaledDeltaTime;
+            }
+
+            // Make sure to reset the values so bobbing can recover from an unstable state.
+            if (springVelocity.IsNaN())
+            {
+                springVelocity = 0;
+            }
+
+            if (springPos.IsNaN())
+            {
+                springPos = 0;
             }
 
             // Vertical head position "spring simulation" for jumping/landing impacts.
@@ -147,7 +164,7 @@ namespace Hertzole.GoldPlayer
             // Output to head Y position.
             springPos += springVelocity * deltaTime;
             // Clamp spring distance.
-            springPos = Mathf.Clamp(springPos, -.3f, .3f);
+            springPos = Mathf.Clamp(springPos, -0.3f, 0.3f);
 
             if (Mathf.Abs(springVelocity) < springVelocityThreshold && Mathf.Abs(springPos) < springPositionThreshold)
             {
@@ -155,9 +172,18 @@ namespace Hertzole.GoldPlayer
                 springPos = 0;
             }
 
+            if (bobCycle.IsNaN())
+            {
+                bobCycle = bobCycleBackup;
+            }
+
             float flatVelocity = new Vector3(velocity.x, 0, velocity.z).magnitude;
             float strideLengthen = 1 + (flatVelocity * strideMultiplier);
             bobCycle += (flatVelocity / strideLengthen) * (deltaTime / bobFrequency);
+            if (!bobCycle.IsNaN())
+            {
+                bobCycleBackup = bobCycle;
+            }
 
             // Stop here instead because if head bob is disabled it can mess up the step sounds cycle.
             if (!enableBob || bobTarget == null)
@@ -188,8 +214,29 @@ namespace Hertzole.GoldPlayer
             float xTilt = -springPos * landTilt;
             float zTilt = bobSwayFactor * swayAngle * bobFade + this.zTilt * strafeTilt;
 
-            bobTarget.localPosition = originalHeadLocalPosition + new Vector3(xPos, yPos, 0);
-            bobTarget.localRotation = Quaternion.Euler(xTilt, bobTarget.localRotation.y, bobTarget.localRotation.z + zTilt);
+            Vector3 targetPosition = originalHeadLocalPosition + new Vector3(xPos, yPos, 0);
+
+            if (!targetPosition.IsNaN())
+            {
+                bobTarget.localPosition = targetPosition;
+            }
+
+            if (xTilt.IsNaN())
+            {
+                xTilt = 0;
+            }
+
+            if (zTilt.IsNaN())
+            {
+                zTilt = 0;
+            }
+
+            Quaternion targetRotation = Quaternion.Euler(xTilt, bobTarget.localRotation.y, bobTarget.localRotation.z + zTilt);
+
+            if (!targetRotation.IsNaN())
+            {
+                bobTarget.localRotation = targetRotation;
+            }
         }
     }
 }
