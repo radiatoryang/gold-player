@@ -1,0 +1,723 @@
+{
+  "sitemap": {
+    "fileOptions": {
+      "api/*": {
+        "baseUrl": "https://normanderwan.github.io/DocFxForUnity/",
+        "changefreq": "daily"
+      }
+    },
+    "baseUrl": "https://normanderwan.github.io/DocFxForUnity/",
+    "changefreq": "weekly"
+  },
+  "homepages": [],
+  "source_base_path": "/github/workspace/docs",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      },
+      "is_incremental": false
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.AudioItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.AudioItem.html",
+          "hash": "fvGfQuDkymyDZ97UzsIlsw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.AudioTypes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.AudioTypes.html",
+          "hash": "cHI8pH2UNzZ5CUIf6EtRnQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.BobClass.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.BobClass.html",
+          "hash": "U3bZ18bqruUeVF8n7YuVEQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.CrouchToggleMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.CrouchToggleMode.html",
+          "hash": "C2T04NHzgqKIZX4SHPbjpg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.FOVKickClass.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.FOVKickClass.html",
+          "hash": "NuqjEWQumRY/+8Ge8iIAWQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerAnimator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerAnimator.html",
+          "hash": "nYOzAjy1gsuOex7Y06b6/w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerAnimatorParameterInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerAnimatorParameterInfo.html",
+          "hash": "1zXzkdtLLoxtwnU5vVpMNw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerAudioAnimator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerAudioAnimator.html",
+          "hash": "yOvWXXqAQJWK9K8r6F703Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerAudioAnimatorTriggers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerAudioAnimatorTriggers.html",
+          "hash": "Bep/Dh/1pOxoxEi3s2jcJQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerController.html",
+          "hash": "1yFG8rd4qhWS3MD9naMNhw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerDelegates.JumpEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerDelegates.JumpEvent.html",
+          "hash": "ugY2fSFC5VrjWYE1U/55aQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerDelegates.LandEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerDelegates.LandEvent.html",
+          "hash": "wCb2lrXXih5D2iG3mtP0sQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerDelegates.PlayerEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerDelegates.PlayerEvent.html",
+          "hash": "7Lb6dv2polTe+ePkdYDnvQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerDelegates.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerDelegates.html",
+          "hash": "D0+08PK+ud8iniFAOs0c3w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerExtensions.html",
+          "hash": "XoEKQMCCKiaEMGL3aA57jg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerGraphics.GraphicsObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerGraphics.GraphicsObject.html",
+          "hash": "B/B/Fv5I4aNhgn025KlWPg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerGraphics.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerGraphics.html",
+          "hash": "lwifruCcJ1l1wQKPTUaSgw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerInput.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerInput.html",
+          "hash": "3aGZ/UbITzdBBfC8SxlLew=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerInteractable.InteractionEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerInteractable.InteractionEvent.html",
+          "hash": "SEhjOlTraZ2UJeZcJVy+kQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerInteractable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerInteractable.html",
+          "hash": "kHbM7NfIQvVjD0/8OTBZcg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerInteraction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerInteraction.html",
+          "hash": "B1t0qT2aYBkHIKEb0I13fg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerObjectBob.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerObjectBob.html",
+          "hash": "5NDHbzh8PNnnTKOWdl/hGg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerUI.LabelDisplayType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerUI.LabelDisplayType.html",
+          "hash": "dnep/OzyZqLw52AzeDu4cw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerUI.ProgressBarType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerUI.ProgressBarType.html",
+          "hash": "IDdtB/tsPWBhj8cDq8oGYw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GoldPlayerUI.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GoldPlayerUI.html",
+          "hash": "j/WzyIoVjIOGcF3oAbkOvw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GraphicsOwner.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GraphicsOwner.html",
+          "hash": "SilTHT/2eTS1D1PP1bTkRA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.GroundCheckType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.GroundCheckType.html",
+          "hash": "2Izd1AJ+/bOJdE4+15rDCQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.HandleGraphics.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.HandleGraphics.html",
+          "hash": "OlGbzHXpvVqCVTCE1c0Jew=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.IGoldInput.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.IGoldInput.html",
+          "hash": "ofVn9AyyeCiT9fJtauG93g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.IGoldPlayerInteractable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.IGoldPlayerInteractable.html",
+          "hash": "K9JqhPHStSef5B39JkQyjA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.InputItem.InputType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.InputItem.InputType.html",
+          "hash": "emaQ1tplY+HDEjxWFfHt4g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.InputItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.InputItem.html",
+          "hash": "nk+tuWEWZgnvBaDgi7Amxg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.MovementSpeeds.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.MovementSpeeds.html",
+          "hash": "rpw29zuow/sa2lrsJseubQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.MovingPlatformsClass.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.MovingPlatformsClass.html",
+          "hash": "6nwrsjuzJtZF+kc3K42RfA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.PlayerAudio.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.PlayerAudio.html",
+          "hash": "r97le09ULFsEm2gGq4Vwvw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.PlayerAudioBehaviour.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.PlayerAudioBehaviour.html",
+          "hash": "ycUHLkA4vZq2pqkA9PLsCw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.PlayerBehaviour.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.PlayerBehaviour.html",
+          "hash": "v1K3oq2YHhm/sEOonVZfqQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.PlayerBob.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.PlayerBob.html",
+          "hash": "1OlO2W+E+SnUVqU++bEy6w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.PlayerCamera.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.PlayerCamera.html",
+          "hash": "eBwgMegWTB7lP2jEoaMd5g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.PlayerModule.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.PlayerModule.html",
+          "hash": "U/qhHVfLeA4cBBcDt6ppMg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.PlayerMovement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.PlayerMovement.html",
+          "hash": "4qsslPX8WWNtc2yQ7bV6Tw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.RunAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.RunAction.html",
+          "hash": "8Yy7VH8JHiR0lW1TkdCWJg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.RunToggleMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.RunToggleMode.html",
+          "hash": "9J6+oQCjEBpZCqJsL4FB3w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.StaminaClass.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.StaminaClass.html",
+          "hash": "QVkNzH83Y2um/e2LGW4TkQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Hertzole.GoldPlayer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Hertzole.GoldPlayer.html",
+          "hash": "By6CIQaWvDBNWSCB3TrCBA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "UcIr1yYCL1jkLbRwivusfQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Components/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Components/index.html",
+          "hash": "viFCSwvYJ81HURejpDqr7A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Components/input.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Components/input.html",
+          "hash": "jbkBgWSaDN+Ca2z+HkaDsg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Components/input_system.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Components/input_system.html",
+          "hash": "i7nS2MCiHItdDj999fZnjg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/General/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/General/index.html",
+          "hash": "ejA/8Ne+va0mxHlVKkhhLg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/General/multiplayer.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/General/multiplayer.html",
+          "hash": "wU/YvBpbU0EqCOA3GssluA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "kyMJIE8WaNP2PYq1e0orUQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "Rw+Q9gChJSO7Ms502qPAzA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "7amb+dJce5GTPLeE9hhmpw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 6,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 45,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: should not trace intermediate info.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
